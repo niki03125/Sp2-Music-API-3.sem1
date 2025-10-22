@@ -1,1 +1,53 @@
-### Test root endpointGE
+### Test root endpoint
+GET http://localhost:7007/api/v1/
+
+
+### Get all hotels
+GET http://localhost:7007/api/v1/hotel
+
+
+
+### Create new hotel (accepts array)
+POST http://localhost:7007/api/v1/hotel
+Content-Type: application/json
+
+{
+  "name": "D'angleterre",
+  "address": "Kongens Nytorv 34"
+}
+
+### Create new Room
+
+POST http://localhost:7007/api/v1/hotel/1/rooms
+Content-Type: application/json
+
+{
+  "number": 101,
+  "price": 250
+}
+
+
+
+### Update hotel by id
+PUT http://localhost:7007/api/v1/hotel/1
+content-Type: application/json
+
+{
+  "name": "Mayflower hotel",
+  "address": "Alanya, Turkey"
+}
+
+###
+
+### Get all rooms for hotel with id=1
+GET http://localhost:7007/api/v1/hotel/1/rooms
+
+
+###
+
+### Delete hotel by ID (replace 1 with actual ID)
+DELETE http://localhost:7007/api/v1/hotel/1
+
+###
+
+###
