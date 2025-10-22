@@ -18,7 +18,7 @@ public class SongDTO {
 
     private String title;
 
-    private double duration;
+    private int duration;
 
     private String genre;
 

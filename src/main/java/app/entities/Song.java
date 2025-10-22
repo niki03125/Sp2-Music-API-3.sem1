@@ -29,7 +29,7 @@ public class Song {
     private String genre;
 
     @Column(name = "duration",nullable = false)
-    private double duration;
+    private int duration;
 
     @Column(name = "song_releaseDate", nullable = false)
     private LocalDate releaseDate;
@@ -41,5 +41,12 @@ public class Song {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id", nullable = false)
     private Artist artist;
+
+    public Song(String title, String genre, int duration, LocalDate releaseDate) {
+        this.title = title;
+        this.genre = genre;
+        this.duration = duration;
+        this.releaseDate = releaseDate;
+    }
 }
 
