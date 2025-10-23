@@ -32,14 +32,13 @@ public class AlbumController implements IController<Album,Integer>{
         }else{
             ctx.json(dto);
         }
-
     }
 
     @Override
     public void getAll(Context ctx) {
-       List<Album> albums = dao.getAll();
-       List<AlbumDTO> albumDTOS = service.toAlbumDTOList(albums);
-       ctx.json(albumDTOS, AlbumDTO.class);
+        List<Album> albums = dao.getAll();
+        List<AlbumDTO> albumDTOS = service.toAlbumDTOList(albums);
+        ctx.json(album, AlbumDTO.class);
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 public class SongService {
     private final SongDAO dao; //adgang til db
+   // private final DeezerService deezerService;
 
 
     public SongService(SongDAO dao){

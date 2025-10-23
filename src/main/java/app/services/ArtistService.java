@@ -3,9 +3,12 @@ package app.services;
 import app.daos.ArtistDAO;
 import app.dtos.AlbumDTO;
 import app.dtos.ArtistDTO;
+import app.dtos.SongDTO;
 import app.entities.Artist;
 import app.entities.Song;
+import org.eclipse.jetty.websocket.core.internal.messages.PartialStringMessageSink;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArtistService {
@@ -23,8 +26,43 @@ public class ArtistService {
         //vi laver dto om til entity
         Artist entity = toEntity(dto);
         Artist created = dao.create(entity);
-        return toDTO(created);
+        return toDTO(created, true, true);
     }
+
+    public ArtistDTO getById(int id){
+        Artist artist = dao.getById(id);
+        if(artist != null){
+            return toDTO(artist, true, true);
+        }else{
+            return null;
+        }
+    }
+
+    public List<ArtistDTO> getAll() {
+        return dao.getAll().stream()
+                .map(artist-> toDTO(artist, false, false))
+                .collect(Collectors.toList());
+    }
+
+    public ArtistDTO update(int id, ArtistDTO dto){
+        Artist exist = dao.getById(id);
+        if(exist == null){
+            return null;
+        }
+
+        exist.setName(dto.getName());
+
+        Artist updated = dao.update(exist);
+        return toDTO(updated, true, true);
+    }
+
+
+
+    public boolean delete(int id){
+        return dao.delete(id);
+    }
+
+
 
     public ArtistDTO toDTO(Artist artist, boolean includeSongs, boolean includeAlbums){
         if(artist == null) return null;
@@ -37,7 +75,7 @@ public class ArtistService {
             builder.songs(
                     artist.getSongs().stream()
                             .map(SongService::toDTO)
-                            .collect(Collectors.toList())
+                            .collect(Collectors.toSet())
 
             );
         }
@@ -46,7 +84,7 @@ public class ArtistService {
             builder.albums(
                     artist.getAlbums().stream()
                             .map(AlbumService::toAlbumDTO)
-                            .collect(Collectors.toList())
+                            .collect(Collectors.toSet())
             );
         }
         return builder.build();
@@ -66,16 +104,17 @@ public class ArtistService {
        if(dto.getSongs() != null){
            artist.setSongs(dto.getSongs().stream()
                    .map(SongService::toEntity)
-                   .collect(Collectors.toList()));
+                   .collect(Collectors.toSet())
+           );
        }
 
 
        if(dto.getAlbums() != null){
            artist.setAlbums(dto.getAlbums().stream()
                    .map(AlbumService::toAlbumEntity)
-                   .collect(Collectors.toList())
-
+                   .collect(Collectors.toSet())
            );
+
        }
 
        return artist;
