@@ -125,4 +125,31 @@ public class SongService {
         return song;
     }
 
+    public SongDTO importFromDeezerTrack(long deezerTrackId, int localArtistId, Integer localAlbumId) {
+        // 1) tjek først DB – undgå dobbelt-import
+        Song existing = dao.findByDeezerTrackId(deezerTrackId);
+        if (existing != null) {
+            return toDTO(existing);
+        }
+
+        // 2) Hent fra Deezer
+        SongDTO ext = deezer.fetchTrackAsDto(deezerTrackId);
+        if (ext == null) throw new IllegalArgumentException("Could not fetch Deezer track: " + deezerTrackId);
+
+        // 3) Sæt lokale relationer + defaults
+        ext.setArtistId(localArtistId);
+        ext.setAlbumId(localAlbumId);
+        if (ext.getGenre() == null || ext.getGenre().isBlank()) ext.setGenre("Unknown");
+        if (ext.getReleaseDate() == null || ext.getReleaseDate().isBlank()) ext.setReleaseDate("2000-01-01");
+        if (ext.getDuration() <= 0) ext.setDuration(180);
+
+        // 4) DTO -> Entity, sæt deezerTrackId, gem
+        Song entity = toEntity(ext);
+        entity.setDeezerTrackId(deezerTrackId);
+        Song created = dao.create(entity);
+
+        return toDTO(created);
+    }
+
+
 }

@@ -74,4 +74,15 @@ public class SongDAO implements IDAO<Song,Integer> {
             }
         }
     }
+
+    public Song findByDeezerTrackId(Long trackId) {
+        try (EntityManager em = emf.createEntityManager()) {
+            var q = em.createQuery("SELECT s FROM Song s WHERE s.deezerTrackId = :tid", Song.class);
+            q.setParameter("tid", trackId);
+            var list = q.getResultList();
+            return list.isEmpty() ? null : list.get(0);
+        }
+    }
+
+
 }
