@@ -55,4 +55,16 @@ public class AlbumService {
                 .artist(artist)
                 .build();
     }
+
+    public static List<AlbumDTO> toAlbumDTOList(List<Album> albums){
+        return albums.stream()
+                .map(AlbumService::toAlbumDTO)
+                .collect(Collectors.toList());
+    }
+
+    public static List<Album>  toAlbumEntityList(List<AlbumDTO> albumDTOs){
+        return albumDTOs.stream()
+                .map(AlbumService::toAlbumEntity)
+                .collect(Collectors.toList());
+    }
 }

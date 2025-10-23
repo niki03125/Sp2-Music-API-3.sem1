@@ -45,11 +45,12 @@ public class Song {
     @Column(name = "deezer_track_id", unique = true)
     private Long deezerTrackId;
 
-    public Song(String title, String genre, int duration, LocalDate releaseDate) {
-        this.title = title;
-        this.genre = genre;
-        this.duration = duration;
+    public Song(Artist artist, LocalDate releaseDate, int duration, String genre, String title) {
+        this.artist = artist;
         this.releaseDate = releaseDate;
+        this.duration = duration;
+        this.genre = genre;
+        this.title = title;
     }
 }
 

@@ -3,7 +3,7 @@ GET http://localhost:7007/api/v1/
 
 
 ### Get all hotels
-GET http://localhost:7007/api/v1/hotel
+GET http://localhost:7007/api/v1/
 
 
 

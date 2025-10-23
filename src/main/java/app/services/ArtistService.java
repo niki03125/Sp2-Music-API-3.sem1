@@ -31,12 +31,16 @@ public class ArtistService {
 
     public ArtistDTO getById(int id){
         Artist artist = dao.getById(id);
-        return (artist != null) ? toDTO(artist, true, true) : null; //retunere null hvis sangen ikke findes
+        if(artist != null){
+            return toDTO(artist, true, true);
+        }else{
+            return null;
+        }
     }
 
     public List<ArtistDTO> getAll() {
         return dao.getAll().stream()
-                .map(a -> toDTO(a, false, false))
+                .map(artist-> toDTO(artist, false, false))
                 .collect(Collectors.toList());
     }
 
