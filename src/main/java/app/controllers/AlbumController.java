@@ -38,7 +38,7 @@ public class AlbumController implements IController<Album,Integer>{
     public void getAll(Context ctx) {
         List<Album> albums = dao.getAll();
         List<AlbumDTO> albumDTOS = service.toAlbumDTOList(albums);
-        ctx.json(album, AlbumDTO.class);
+        ctx.json(albumDTOS, AlbumDTO.class);
     }
 
     @Override
