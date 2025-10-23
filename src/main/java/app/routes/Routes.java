@@ -6,6 +6,7 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 public class Routes {
     AlbumRoutes albumRoutes = new AlbumRoutes();
     private ArtistRoutes artistRoutes = new ArtistRoutes();
+    private SongRoutes songRoutes = new SongRoutes();
 
     public EndpointGroup getRoutes(){
         return () -> {
@@ -15,6 +16,9 @@ public class Routes {
             });
             path("/albums", () -> {
                 albumRoutes.getAlbumRoutes();
+            });
+            path("/songs", () -> {
+                songRoutes.getSongRoutes();
             });
         };
     }

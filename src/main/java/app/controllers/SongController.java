@@ -88,4 +88,15 @@ public class SongController implements IController<SongDTO,Integer>{
                 .check(s -> s.getReleaseDate() != null && !s.getReleaseDate().isBlank(), "releaseDate is required")//realeaseDate skal være sat
                 .get();
     }
+
+
+    public void importFromDeezer(Context ctx){
+        long trackId = ctx.pathParamAsClass("trackId", Long.class).get();
+        int artistId = ctx.queryParamAsClass("artistId", Integer.class)
+                .check(a -> a > 0, "artistId required").get();
+        Integer albumId = ctx.queryParamAsClass("albumId", Integer.class).allowNullable().get();
+
+        var created = songService.importFromDeezerTrack(trackId, artistId, albumId);
+        ctx.status(201).json(created);
+    }
 }
