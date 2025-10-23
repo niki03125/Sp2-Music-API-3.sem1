@@ -77,4 +77,11 @@ public class ArtistDAO implements IDAO<Artist, Integer>{
             return false;
         }
     }
+
+    public boolean validatePrimaryKey(Integer id){
+        try(EntityManager em = emf.createEntityManager()){
+            Artist artist = em.find(Artist.class, id);
+            return artist != null;
+        }
+    }
 }
