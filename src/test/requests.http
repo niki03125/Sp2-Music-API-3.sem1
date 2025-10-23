@@ -2,52 +2,43 @@
 GET http://localhost:7007/api/v1/
 
 
-### Get all hotels
-GET http://localhost:7007/api/v1/
+### Get all albums
+GET http://localhost:7007/api/v1/albums
+Accept: application/json
 
+### Get by id
+GET http://localhost:7007/api/v1/albums/1
+Accept: application/json
 
-
-### Create new hotel (accepts array)
-POST http://localhost:7007/api/v1/hotel
+### Create new album
+POST http://localhost:7007/api/v1/albums
 Content-Type: application/json
 
 {
-  "name": "D'angleterre",
-  "address": "Kongens Nytorv 34"
+  "albumTitle": "Blinding lights",
+  "genre": "Hip hip",
+  "releaseDate": "2020-7-13"
 }
 
-### Create new Room
-
-POST http://localhost:7007/api/v1/hotel/1/rooms
+### Update album by id
+PUT http://localhost:7007/api/v1/albums/1
 Content-Type: application/json
 
 {
-  "number": 101,
-  "price": 250
+  "albumTitle": "Blinding lights",
+  "genre": "Rap",
+  "releaseDate": "2020-7-13"
 }
 
+### Delete album by id
+DELETE http://localhost:7007/api/v1/albums/1
 
 
-### Update hotel by id
-PUT http://localhost:7007/api/v1/hotel/1
-content-Type: application/json
-
-{
-  "name": "Mayflower hotel",
-  "address": "Alanya, Turkey"
-}
-
-###
-
-### Get all rooms for hotel with id=1
-GET http://localhost:7007/api/v1/hotel/1/rooms
+### Get all artists
+GET http://localhost:7007/api/v1/artist
+Accept: application/json
 
 
-###
-
-### Delete hotel by ID (replace 1 with actual ID)
-DELETE http://localhost:7007/api/v1/hotel/1
-
-###
-
-###
+### Get all songs
+GET http://localhost:7007/api/v1/songs
+Accept: application/json
