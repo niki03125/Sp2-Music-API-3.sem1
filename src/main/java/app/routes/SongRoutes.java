@@ -12,7 +12,7 @@ public class SongRoutes {
 
     public EndpointGroup getSongRoutes(){
         return () -> {
-            post("/api/v1/songs/import/deezer/:trackId", songController::impo);
+            //post("/api/v1/songs/import/deezer/:trackId", songController::impo);
             get("/", songController::getAll);
             get("/{id}", songController::getById);
             post("/", songController::create);
