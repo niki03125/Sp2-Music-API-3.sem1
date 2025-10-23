@@ -24,7 +24,7 @@ public class AlbumController implements IController<Album,Integer>{
         Album album = dao.getById(id);
 
         ctx.res().setStatus(200);
-        ctx.json(albumDTO, AlbumDTO.class);
+        ctx.json(album, AlbumDTO.class);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class AlbumController implements IController<Album,Integer>{
         List<Album> album = dao.getAll();
 
         ctx.res().setStatus(200);
-        ctx.json(albumDTO, AlbumDTO.class);
+        ctx.json(album, AlbumDTO.class);
     }
 
     @Override
