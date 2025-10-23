@@ -42,6 +42,9 @@ public class Song {
     @JoinColumn(name = "artist_id", nullable = false)
     private Artist artist;
 
+    @Column(name = "deezer_track_id", unique = true)
+    private Long deezerTrackId;
+
     public Song(String title, String genre, int duration, LocalDate releaseDate) {
         this.title = title;
         this.genre = genre;

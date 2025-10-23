@@ -45,7 +45,7 @@ public class DeezerService {
     }
 
     //henter et track fra Deezer og mapper til en songDTO
-    public SongDTO fetchTrackAsDto(int trackId){
+    public SongDTO fetchTrackAsDto(long trackId){
         SongDTO result = null;
 
         try{
