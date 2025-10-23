@@ -13,11 +13,15 @@ import java.util.stream.Collectors;
 
 public class SongService {
     private final SongDAO dao; //adgang til db
-   // private final DeezerService deezerService;
-
+    private final DeezerService deezer;
 
     public SongService(SongDAO dao){
+        this(dao,new DeezerService());
+    }
+
+    public SongService(SongDAO dao, DeezerService deezer){
         this.dao = dao;
+        this.deezer = deezer;
     }
 
     //Create = lav ny sang
