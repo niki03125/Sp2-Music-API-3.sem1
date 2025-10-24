@@ -88,6 +88,17 @@ public class AlbumService {
         return builder.build();
     }
 
+    public Album saveAlbumFromDeezer(int deezerAlbumId){
+        try{
+            AlbumDTO dto = DeezerService.fetchAlbumAsDto(deezerAlbumId);
+            Album album = toAlbumEntity(dto);
+            Album newAlbum = dao.create(album);
+            return newAlbum;
+        }catch(Exception e){
+            throw new RuntimeException("Failed to save album from deezer api: " + e.getMessage());
+        }
+    }
+
     public static List<AlbumDTO> toAlbumDTOList(List<Album> albums){
         return albums.stream()
                 .map(AlbumService::toAlbumDTO)

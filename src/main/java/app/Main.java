@@ -5,8 +5,11 @@ import app.config.HibernateConfig;
 import app.daos.AlbumDAO;
 import app.daos.ArtistDAO;
 import app.daos.SongDAO;
+
+import app.dtos.AlbumDTO;
 import app.dtos.ArtistDTO;
 import app.dtos.SongDTO;
+import app.entities.Album;
 import app.entities.Artist;
 import app.entities.Song;
 import app.exceptions.ApiException;
@@ -71,6 +74,10 @@ public class Main {
             System.out.println("Song fetched by id: " + byId);
 
             /// ///////////////////// Janhcke (ALBUM)////////////////////
+
+            int albumId = 302127;
+            Album importedAlbum = albumService.saveAlbumFromDeezer(albumId);
+            System.out.println("Imported " + importedAlbum);
 
         } catch (ApiException e) {
             System.err.println("Fejl: " + e.getMessage());
