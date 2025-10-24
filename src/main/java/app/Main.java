@@ -7,6 +7,7 @@ import app.daos.ArtistDAO;
 import app.daos.SongDAO;
 import app.dtos.SongDTO;
 import app.entities.Artist;
+import app.entities.Song;
 import app.exceptions.ApiException;
 import app.services.AlbumService;
 import app.services.ArtistService;
@@ -52,13 +53,12 @@ public class Main {
             System.out.println("Songs in our db " + all.size());
             all.forEach(System.out::println);
 
-
+            SongDTO byId = songService.getById(importedSong1.getId());
+            System.out.println("Song fetched by id: " + byId);
 
         } catch (ApiException e) {
             System.err.println("Fejl: " + e.getMessage());
         }
-        System.out.println(json);
-
     }
 
 }
