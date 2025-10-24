@@ -1,9 +1,13 @@
 package app.services;
 
 
+import app.dtos.ArtistDTO;
 import app.dtos.SongDTO;
+import app.entities.Artist;
 import app.entities.Song;
 import app.exceptions.ApiException;
+import app.exceptions.NotFoundException;
+import app.exceptions.ServerErrorException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -90,5 +94,59 @@ public class DeezerService {
         }
         return result;
     }
+
+    //Get artist info from deezer and convert it to an ArtistDTO object
+    public ArtistDTO fetchArtistAsDto(long artistId) throws ApiException{
+        // Result Equals null if something has gone wrong
+        ArtistDTO result = null;
+
+        try{
+            //Http client
+            HttpClient client = HttpClient.newHttpClient();
+
+            // Endpoint artist/id
+            String url = "https://api.deezer.com/artist/" + artistId;
+
+            // The get request object
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .header("accept","application/json") // We want would like a json response
+                    .GET()
+                    .build();
+
+            // Sending response and receiving response as a string
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            int status = response.statusCode();
+
+            // Is status code 200
+            if(status == 200){
+                // To parse json
+                ObjectMapper mapper = new ObjectMapper();
+
+                // Reads json response as a tree of nodes
+                JsonNode node = mapper.readTree(response.body());
+
+                ArtistDTO artistDTO = new ArtistDTO();
+                artistDTO.setId(null); // the id is handled by db
+                artistDTO.setName(node.path("name").asText(null)); // get artist name from json
+
+                return artistDTO;
+                // Artist was not found 404
+            }else if(status == 404){
+                throw new NotFoundException("The artist was not found with id: " + artistId);
+            }else if(status >= 500){
+                throw new ServerErrorException("The Deezer api returned server failed: " + response.statusCode());
+            }else{
+                // in general
+                throw new ApiException(status, "Unexpected status code from the deezer api");
+            }
+
+            //IO, Interrupted, URISyntaxException samles
+        }catch (Exception e){
+            throw new ApiException(500," Failed at connection to deezer api: " + e.getMessage());
+        }
+    }
+
 
 }
