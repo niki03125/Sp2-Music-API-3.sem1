@@ -5,7 +5,9 @@ import app.config.HibernateConfig;
 import app.daos.AlbumDAO;
 import app.daos.ArtistDAO;
 import app.daos.SongDAO;
+
 import app.dtos.AlbumDTO;
+import app.dtos.ArtistDTO;
 import app.dtos.SongDTO;
 import app.entities.Album;
 import app.entities.Artist;
@@ -36,9 +38,18 @@ public class Main {
 
         try {
             ///   ///////////// Peter(ARTIST)//////////////////////
-            long artistId = 10; // fx Daft Punk
-            Artist savedArtist = artistService.saveArtistFromDeezer(artistId);
-            System.out.println("Saved artist: " + savedArtist.getName());
+
+            long artistId = 1;
+            Artist savedArtist1 = artistService.saveArtistFromDeezer(artistId);
+            System.out.println("Saved artist: " + savedArtist1.getName());
+
+            long artistId2 = 2;
+            Artist savedArtist2 = artistService.saveArtistFromDeezer(artistId2);
+            System.out.println("Saved artist: " + savedArtist2.getName());
+
+            long artistId3 = 3;
+            Artist savedArtist3 = artistService.saveArtistFromDeezer(artistId3);
+            System.out.println("Saved artist: " + savedArtist3.getName());
 
 
             /// ///////////////// Niki(SONGS)///////////////////////////
@@ -46,12 +57,12 @@ public class Main {
             //empoter en sang, bind til artist, gem i db
             int deezerTrackId1 = 3135556;
             Integer localAlbumId1 = null;
-            SongDTO importedSong1 = songService.importFromDeezerTrack(deezerTrackId1, savedArtist.getId(), localAlbumId1);
+            SongDTO importedSong1 = songService.importFromDeezerTrack(deezerTrackId1, savedArtist1.getId(), localAlbumId1);
             System.out.println("Imported Song" + importedSong1);
 
             int deezerTrackId2 = 3135602;
             Integer localAlbumId2 = null;
-            SongDTO importedSong2 = songService.importFromDeezerTrack(deezerTrackId2, savedArtist.getId(),localAlbumId2);
+            SongDTO importedSong2 = songService.importFromDeezerTrack(deezerTrackId2, savedArtist2.getId(),localAlbumId2);
             System.out.println("Imported Song" + importedSong2);
 
             //Læs kun fra db
