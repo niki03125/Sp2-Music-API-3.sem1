@@ -20,6 +20,9 @@ import app.entities.Artist;
 public class ArtistDTO {
     private Integer id;
     private String name;
+    private Integer albumAmount;
+    private Integer fanAmount;
+    private String tracklist;
     private Set<SongDTO> songs;
     private Set<AlbumDTO> albums;
 
