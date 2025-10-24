@@ -117,7 +117,7 @@ public class ArtistService {
        return artist;
     }
 
-    // Import the artist to db
+    // Save artist to db
     public Artist saveArtistFromDeezer (long artistId) throws ApiException {
 
         DeezerService deezerService = new DeezerService();              
