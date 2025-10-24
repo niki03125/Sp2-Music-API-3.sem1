@@ -26,8 +26,9 @@ public class Album {
     @Column(nullable = false, name = "album_title")
     private String albumTitle;
 
-    @Column(nullable = false, name = "album_genre")
-    private String genre;
+    @JoinColumn(name = "genre_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    private Genre genre;
 
     @Column(nullable = false, name = "album_releaseDate")
     private LocalDate releaseDate;
@@ -36,5 +37,6 @@ public class Album {
     private Set<Song> songs = new HashSet<>();
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "artist_id")
     private Artist artist;
 }

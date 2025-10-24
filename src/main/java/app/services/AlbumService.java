@@ -1,9 +1,12 @@
 package app.services;
 
 import app.daos.AlbumDAO;
+import app.daos.ArtistDAO;
 import app.dtos.AlbumDTO;
+import app.dtos.GenreDTO;
 import app.entities.Album;
 import app.entities.Artist;
+import app.entities.Genre;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,21 +42,50 @@ public class AlbumService {
         return AlbumDTO.builder()
                 .albumId(album.getAlbumId())
                 .albumTitle(album.getAlbumTitle())
-                .genre(album.getGenre())
+                .genre(album.getGenre() != null ? GenreDTO.builder()
+                        .data(List.of(GenreDTO.GenreData.builder()
+                                .id(album.getGenre().getId())
+                                .name(album.getGenre().getName())
+                                .build()))
+                        .build()
+                        : null)
+                .artistName(album.getArtist() != null ? album.getArtist().getName() : null)
                 .releaseDate(album.getReleaseDate() != null ? album.getReleaseDate().toString(): null)
-                .artistName(album.getArtist().getName())
                 .build();
     }
 
     public static Album toAlbumEntity(AlbumDTO albumDTO){
-        Artist artist = new Artist();
-        return Album.builder()
-                .albumId(albumDTO.getAlbumId())
+        if(albumDTO.getAlbumTitle() == null || albumDTO.getAlbumTitle().isBlank()){
+            throw new IllegalArgumentException("Album title cannot be empty");
+        }
+
+        if(albumDTO.getReleaseDate() == null || albumDTO.getReleaseDate().isBlank()){
+            throw new IllegalArgumentException("Release date cannot be empty");
+        }
+
+
+
+        Album.AlbumBuilder builder = Album.builder()
                 .albumTitle(albumDTO.getAlbumTitle())
-                .genre(albumDTO.getGenre())
-                .releaseDate(albumDTO.getReleaseDate() != null ? LocalDate.parse(albumDTO.getReleaseDate().toString()) : null)
-                .artist(artist)
-                .build();
+                .releaseDate(albumDTO.getReleaseDate() != null ? LocalDate.parse(albumDTO.getReleaseDate()) : null);
+
+        if(albumDTO.getGenre() != null && albumDTO.getGenre().getData() != null && !albumDTO.getGenre().getData().isEmpty()) {
+            GenreDTO.GenreData genreData = albumDTO.getGenre().getData().get(0);
+
+            Genre genre = new Genre();
+            genre.setName(genreData.getName());
+            builder.genre(genre);
+        } else{
+            throw new IllegalArgumentException("Genre data cannot be empty");
+        }
+
+        if(albumDTO.getArtistName() != null && !albumDTO.getArtistName().isBlank()){
+            Artist artist = new Artist();
+            artist.setName(albumDTO.getArtistName());
+            builder.artist(artist);
+
+        }
+        return builder.build();
     }
 
     public static List<AlbumDTO> toAlbumDTOList(List<Album> albums){
