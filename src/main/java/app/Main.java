@@ -34,6 +34,8 @@ public class Main {
         ArtistService artistService = new ArtistService(artistDAO, albumService, songService);
 
         try {
+            ///   ///////////// Peter(ARTIST)//////////////////////
+
             long artistId = 1;
             Artist savedArtist1 = artistService.saveArtistFromDeezer(artistId);
             System.out.println("Saved artist: " + savedArtist1.getName());
@@ -46,6 +48,8 @@ public class Main {
             Artist savedArtist3 = artistService.saveArtistFromDeezer(artistId3);
             System.out.println("Saved artist: " + savedArtist3.getName());
 
+
+            /// ///////////////// Niki(SONGS)///////////////////////////
 
             //empoter en sang, bind til artist, gem i db
             int deezerTrackId1 = 3135556;
@@ -65,6 +69,8 @@ public class Main {
 
             SongDTO byId = songService.getById(importedSong1.getId());
             System.out.println("Song fetched by id: " + byId);
+
+            /// ///////////////////// Janhcke (ALBUM)////////////////////
 
         } catch (ApiException e) {
             System.err.println("Fejl: " + e.getMessage());
