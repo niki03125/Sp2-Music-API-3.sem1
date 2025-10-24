@@ -130,6 +130,9 @@ public class DeezerService {
                 ArtistDTO artistDTO = new ArtistDTO();
                 artistDTO.setId(null); // the id is handled by db
                 artistDTO.setName(node.path("name").asText(null)); // get artist name from json
+                artistDTO.setAlbumAmount(node.path("nb_album").asInt(0));
+                artistDTO.setFanAmount(node.path("nb_fan").asInt(0));
+                artistDTO.setTracklist(node.path("tracklist").asText(null));
 
                 return artistDTO;
                 // Artist was not found 404
@@ -147,6 +150,4 @@ public class DeezerService {
             throw new ApiException(500," Failed at connection to deezer api: " + e.getMessage());
         }
     }
-
-
 }
