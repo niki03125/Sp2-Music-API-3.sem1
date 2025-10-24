@@ -1,13 +1,10 @@
 package app.services;
 
-
 import app.daos.SongDAO;
 import app.dtos.SongDTO;
 import app.entities.Album;
 import app.entities.Artist;
 import app.entities.Song;
-
-import javax.naming.Context;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -92,7 +89,7 @@ public class SongService {
         dto.setGenre(song.getGenre());
         dto.setDuration(song.getDuration());
         dto.setReleaseDate(song.getReleaseDate().toString());
-        dto.setArtistName(song.getArtist().getName());
+
         if(song.getArtist() != null){
             dto.setArtistName(song.getArtist().getName());
             dto.setArtistId(song.getArtist().getId());

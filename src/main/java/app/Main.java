@@ -1,7 +1,9 @@
 package app;
 
 import app.config.ApplicationConfig;
+import app.config.HibernateConfig;
 import app.services.DeezerService;
+import jakarta.persistence.EntityManagerFactory;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,6 +13,9 @@ public class Main {
 
         System.out.println(json);
         //
+
+        EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
+
     }
 
 }
