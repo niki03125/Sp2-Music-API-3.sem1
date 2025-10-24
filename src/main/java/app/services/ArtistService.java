@@ -1,36 +1,35 @@
 package app.services;
-
 import app.daos.ArtistDAO;
-import app.dtos.AlbumDTO;
 import app.dtos.ArtistDTO;
-import app.dtos.SongDTO;
 import app.entities.Artist;
-import app.entities.Song;
-import org.eclipse.jetty.websocket.core.internal.messages.PartialStringMessageSink;
+import app.exceptions.ApiException;
+
+
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArtistService {
-    private final ArtistDAO dao;
+    private final ArtistDAO artistDAO;
     private final AlbumService albumService;
     private final SongService songService;
 
-    public ArtistService(ArtistDAO dao, AlbumService albumService, SongService songService){
-        this.dao = dao;
+    public ArtistService(ArtistDAO artistDAO, AlbumService albumService, SongService songService){
+        this.artistDAO = artistDAO;
         this.albumService = albumService;
         this.songService = songService;
+
     }
 
     public ArtistDTO create(ArtistDTO dto){
         //vi laver dto om til entity
         Artist entity = toEntity(dto);
-        Artist created = dao.create(entity);
+        Artist created = artistDAO.create(entity);
         return toDTO(created, true, true);
     }
 
     public ArtistDTO getById(int id){
-        Artist artist = dao.getById(id);
+        Artist artist = artistDAO.getById(id);
         if(artist != null){
             return toDTO(artist, true, true);
         }else{
@@ -39,27 +38,27 @@ public class ArtistService {
     }
 
     public List<ArtistDTO> getAll() {
-        return dao.getAll().stream()
+        return artistDAO.getAll().stream()
                 .map(artist-> toDTO(artist, false, false))
                 .collect(Collectors.toList());
     }
 
     public ArtistDTO update(int id, ArtistDTO dto){
-        Artist exist = dao.getById(id);
+        Artist exist = artistDAO.getById(id);
         if(exist == null){
             return null;
         }
 
         exist.setName(dto.getName());
 
-        Artist updated = dao.update(exist);
+        Artist updated = artistDAO.update(exist);
         return toDTO(updated, true, true);
     }
 
 
 
     public boolean delete(int id){
-        return dao.delete(id);
+        return artistDAO.delete(id);
     }
 
 
@@ -108,7 +107,6 @@ public class ArtistService {
            );
        }
 
-
        if(dto.getAlbums() != null){
            artist.setAlbums(dto.getAlbums().stream()
                    .map(AlbumService::toAlbumEntity)
@@ -116,7 +114,27 @@ public class ArtistService {
            );
 
        }
-
        return artist;
+    }
+
+    // Import the artist to db
+    public Artist saveArtistFromDeezer (long artistId) throws ApiException {
+
+        DeezerService deezerService = new DeezerService();              
+        // Get data from deezer
+        ArtistDTO artistDTO = deezerService.fetchArtistAsDto(artistId);
+
+        if(artistDTO == null || artistDTO.getName() == null){
+            throw new ApiException(500, "Invalid artist data from returned from deezer");
+        }
+
+        // Convert from dto to entity
+        Artist artist = new Artist();
+        artist.setName(artistDTO.getName());
+
+        // save in db
+        artistDAO.create(artist);
+
+        return artist;
     }
 }

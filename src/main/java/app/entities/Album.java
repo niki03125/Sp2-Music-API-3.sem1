@@ -37,6 +37,4 @@ public class Album {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Artist artist;
-
-
 }
