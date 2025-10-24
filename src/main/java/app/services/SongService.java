@@ -110,12 +110,13 @@ public class SongService {
         Song song = new Song();
         song.setSongId(dto.getId());
         song.setTitle(dto.getTitle());
+        song.setGenre(dto.getGenre());
         song.setDuration(dto.getDuration());
         song.setReleaseDate(LocalDate.parse(dto.getReleaseDate()));
         //lav et Artis, sang skal altid have
         if(dto.getArtistId() != null){
             Artist artist = new Artist();
-            artist.setName(dto.getArtistName());
+            artist.setId(dto.getArtistId());
             song.setArtist(artist);
         }
         if(dto.getAlbumId() != null){
@@ -127,7 +128,7 @@ public class SongService {
     }
 
     public SongDTO importFromDeezerTrack(long deezerTrackId, int localArtistId, Integer localAlbumId) {
-        // 1) tjek først DB – undgå dobbelt-import
+        // 1) tjek først DB – for at undgå dobbelt-import
         Song existing = dao.findByDeezerTrackId(deezerTrackId);
         if (existing != null) {
             return toDTO(existing);
