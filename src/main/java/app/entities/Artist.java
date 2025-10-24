@@ -30,13 +30,22 @@ public class Artist {
     @Column(name = "artist_name")
     private String name;
 
-    @Column(name = "artist_age")
-    private int age;
+    //@Column(name = "artist_age")
+    //private int age;
 
-    @Column(name = "nationality")
-    private String nationality;
+    //@Column(name = "nationality")
+    //private String nationality;
 
-   @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column(name = "amount_album")
+    private Integer albumAmount;
+
+    @Column(name = "amount_fan")
+    private Integer fanAmount;
+
+    @Column(name = "artist_tracklist")
+    private String trackList;
+
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Song> songs = new HashSet<>();

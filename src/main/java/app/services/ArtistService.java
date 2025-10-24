@@ -131,6 +131,9 @@ public class ArtistService {
         // Convert from dto to entity
         Artist artist = new Artist();
         artist.setName(artistDTO.getName());
+        artist.setAlbumAmount(artistDTO.getAlbumAmount());
+        artist.setFanAmount(artistDTO.getFanAmount());
+        artist.setTrackList(artistDTO.getTracklist());
 
         // save in db
         artistDAO.create(artist);
