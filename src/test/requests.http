@@ -15,9 +15,18 @@ POST http://localhost:7007/api/v1/albums
 Content-Type: application/json
 
 {
-  "albumTitle": "Blinding lights",
-  "genre": "Hip hip",
-  "releaseDate": "2020-7-13"
+  "title": "After hours",
+  "releaseDate": "2020-07-13",
+  "name": "The Weeknd",
+  "genre": {
+    "data": [
+      {
+        "id": 1,
+        "name": "R&B"
+      }
+    ]
+  },
+  "nb_Tracks": 22
 }
 
 ### Update album by id
@@ -26,8 +35,13 @@ Content-Type: application/json
 
 {
   "albumTitle": "Blinding lights",
-  "genre": "Rap",
-  "releaseDate": "2020-7-13"
+  "genre": {
+    "id": 1,
+    "name": "Rap"
+  },
+  "releaseDate": "2020-07-13",
+  "artistName": "MGK",
+  "nbTracks": 22
 }
 
 ### Delete album by id

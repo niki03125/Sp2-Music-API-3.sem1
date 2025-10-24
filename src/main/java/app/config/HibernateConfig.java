@@ -2,6 +2,7 @@ package app.config;
 
 import app.entities.Album;
 import app.entities.Artist;
+import app.entities.Genre;
 import app.entities.Song;
 import app.utils.Utils;
 
@@ -45,7 +46,7 @@ public class HibernateConfig {
         configuration.addAnnotatedClass(Song.class);
         configuration.addAnnotatedClass(Artist.class);
         configuration.addAnnotatedClass(Album.class);
-
+        configuration.addAnnotatedClass(Genre.class);
     }
 
     private static EntityManagerFactory createEMF(boolean forTest) {
