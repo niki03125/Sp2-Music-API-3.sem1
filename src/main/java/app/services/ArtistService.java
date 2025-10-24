@@ -68,7 +68,10 @@ public class ArtistService {
 
         var builder = ArtistDTO.builder()
                 .id(artist.getId())
-                .name(artist.getName());
+                .name(artist.getName())
+                .albumAmount(artist.getAlbumAmount())
+                .fanAmount(artist.getFanAmount())
+                .tracklist(artist.getTrackList());
 
         if(includeSongs && artist.getSongs() != null){
             builder.songs(
