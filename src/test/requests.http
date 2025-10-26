@@ -56,3 +56,36 @@ Accept: application/json
 ### Get all songs
 GET http://localhost:7007/api/v1/songs
 Accept: application/json
+
+### GET by id
+GET http://localhost:7007/api/v1/songs/1
+Accept: application/json
+
+### Create new song
+POST http://localhost:7007/api/v1/songs
+Content-Type: application/json
+
+{
+  "title": "The Eye Color Ballad",
+  "duration": 242,
+  "genre": "Unknown",
+  "releaseDate": "2022-05-23",
+  "artistId": 3,
+  "albumId": null
+}
+
+### Update song by id
+PUT http://localhost:7007/api/v1/songs/1
+Content-Type: application/json
+
+{
+  "title": "The Eye Color Ballad",
+  "duration": 242,
+  "genre": "Unknown",
+  "releaseDate": "2015-02-08",
+  "artistId": 3,
+  "albumId": null
+}
+
+### Delete song by id
+DELETE http://localhost:7007/api/v1/songs/1

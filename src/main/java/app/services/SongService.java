@@ -27,6 +27,7 @@ public class SongService {
         //vi laver dto om til entity
         Song entity = toEntity(dto);
         Song created = dao.create(entity);
+        created = dao.getById(created.getSongId());
         return toDTO(created);
     }
 
