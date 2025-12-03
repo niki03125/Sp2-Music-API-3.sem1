@@ -23,7 +23,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        ApplicationConfig.startServer(7070);
+        ApplicationConfig.startServer(7071);
         DeezerService deezerService = new DeezerService();
         String json = deezerService.getInfoFromUrl("https://api.deezer.com/track/3135556");
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
