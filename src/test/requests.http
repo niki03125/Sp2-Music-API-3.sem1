@@ -1,5 +1,5 @@
 ### Test root endpoint
-GET http://localhost:7007/api/v1/
+GET http://localhost:7071/api/v1/
 
 
 ### Get all albums
@@ -49,7 +49,7 @@ DELETE http://localhost:7007/api/v1/albums/1
 
 
 ### Get all artists
-GET http://localhost:7007/api/v1/artist
+GET https://music.codedbyniki.dk/api/v1/artist/
 Accept: application/json
 
 

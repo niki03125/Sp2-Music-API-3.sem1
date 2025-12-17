@@ -16,8 +16,8 @@ public class ApplicationConfig {
     }
 
     public static Javalin startServer(int port) {
-        routes = new Routes();
-        var app = Javalin.create(ApplicationConfig::configuration);
+        //routes = new Routes();
+        Javalin app = Javalin.create(ApplicationConfig::configuration);
         app.before(ApplicationConfig::corsHeaders);
         app.options("/*", ApplicationConfig::corsHeadersOptions);
         app.start(port);
@@ -32,7 +32,7 @@ public class ApplicationConfig {
         ctx.header("Access-Control-Allow-Origin", "*");
         ctx.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         ctx.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        ctx.header("Access-Control-Allow-Credentials", "true");
+        ctx.header("Access-Control-Allow-Credentials", "false");
     }
 
     private static void corsHeadersOptions(Context ctx) {
